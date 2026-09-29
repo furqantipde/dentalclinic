@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smile Dental Clinic | Dr. Muhammad Bilal Haider</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dental: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#026aa7',
+                            700: '#035388',
+                            900: '#0f2942',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom smooth scrollbar & glassmorphism */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(2, 132, 199, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(2, 132, 199, 0.8); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 3s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-dental-50 via-slate-50 to-blue-50 text-slate-800 font-sans antialiased selection:bg-dental-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-card shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-dental-700 to-dental-500 flex items-center justify-center text-white shadow-lg shadow-dental-500/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-tooth text-2xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-dental-900 block leading-tight">SMILE</span>
+                    <span class="text-xs font-semibold tracking-wider text-dental-600 block uppercase">Dental Clinic</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm text-slate-600">
+                <a href="#home" class="hover:text-dental-600 transition-colors">Home</a>
+                <a href="#about" class="hover:text-dental-600 transition-colors">Doctor Profile</a>
+                <a href="#services" class="hover:text-dental-600 transition-colors">Services</a>
+                <a href="#transformation" class="hover:text-dental-600 transition-colors">Before & After</a>
+                <a href="#facilities" class="hover:text-dental-600 transition-colors">Facilities</a>
+                <a href="#contact" class="hover:text-dental-600 transition-colors">Contact</a>
+            </nav>
+
+            <!-- CTA Appointment Button -->
+            <div class="flex items-center space-x-4">
+                <a href="tel:03174640072" class="hidden lg:flex items-center space-x-2 text-dental-700 font-semibold text-sm bg-dental-100/80 px-4 py-2.5 rounded-xl hover:bg-dental-200 transition-colors">
+                    <i class="fa-solid fa-phone text-dental-600"></i>
+                    <span>03174640072</span>
+                </a>
+                <button onclick="openBookingModal()" class="bg-gradient-to-r from-dental-600 to-dental-700 text-white px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-dental-500/30 hover:shadow-dental-500/50 hover:scale-105 transition-all text-sm flex items-center space-x-2">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Book Appointment</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 text-xl p-2 focus:outline-none">
+                    <i class="fa-solid fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-b border-slate-200 px-6 py-4 space-y-3 shadow-xl">
+            <a href="#home" onclick="toggleMobileMenu()" class="block text-slate-700 font-medium py-2">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-slate-700 font-medium py-2">Doctor Profile</a>
+            <a href="#services" onclick="toggleMobileMenu()" class="block text-slate-700 font-medium py-2">Services</a>
+            <a href="#transformation" onclick="toggleMobileMenu()" class="block text-slate-700 font-medium py-2">Before & After</a>
+            <a href="#facilities" onclick="toggleMobileMenu()" class="block text-slate-700 font-medium py-2">Facilities</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-slate-700 font-medium py-2">Contact</a>
+            <div class="pt-2 border-t border-slate-100">
+                <a href="tel:03174640072" class="flex items-center space-x-2 text-dental-700 font-semibold py-2">
+                    <i class="fa-solid fa-phone text-dental-600"></i>
+                    <span>03174640072</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+        <!-- Background Decorative Blur Orbs -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-300/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-dental-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-dental-100/80 border border-dental-200 px-4 py-2 rounded-full text-dental-700 text-xs sm:text-sm font-semibold tracking-wide shadow-sm animate-float">
+                        <i class="fa-solid fa-sparkles text-dental-600"></i>
+                        <span>Happy Smile For a Joyful Life</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        Advanced Dental Care with <span class="text-transparent bg-clip-text bg-gradient-to-r from-dental-600 to-blue-600">Precision & Art</span>
+                    </h1>
+
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal">
+                        Welcome to <strong class="text-slate-900">Smile Dental Clinic</strong>. Led by expert dental surgeon <span class="text-dental-700 font-semibold">Dr. Muhammad Bilal Haider</span> (BDS, RDS, UHS), delivering world-class implants, orthodontics, and smile makeovers in Lahore.
+                    </p>
+
+                    <!-- Credentials Badge Box -->
+                    <div class="flex flex-wrap gap-2 justify-center lg:justify-start pt-2">
+                        <span class="bg-white px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm flex items-center space-x-1.5">
+                            <i class="fa-solid fa-graduation-cap text-dental-600"></i>
+                            <span>BDS, RDS, UHS</span>
+                        </span>
+                        <span class="bg-white px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm flex items-center space-x-1.5">
+                            <i class="fa-solid fa-id-card text-dental-600"></i>
+                            <span>PMDC# 941690-01-D</span>
+                        </span>
+                        <span class="bg-white px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm flex items-center space-x-1.5">
+                            <i class="fa-solid fa-clock text-dental-600"></i>
+                            <span>Mon - Sat: 3 PM - 10 PM</span>
+                        </span>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <button onclick="openBookingModal()" class="w-full sm:w-auto bg-gradient-to-r from-dental-600 to-dental-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-xl shadow-dental-500/30 hover:scale-105 transition-all flex items-center justify-center space-x-3 text-base">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span>Book Consultation Now</span>
+                        </button>
+                        <a href="tel:03174640072" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 font-semibold px-8 py-4 rounded-2xl border border-slate-200 shadow-sm transition-all flex items-center justify-center space-x-3 text-base">
+                            <i class="fa-solid fa-phone text-dental-600"></i>
+                            <span>Call: 03174640072</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Highlights -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 max-w-lg mx-auto lg:mx-0">
+                        <div class="text-center lg:text-left">
+                            <p class="text-2xl font-extrabold text-dental-700">100%</p>
+                            <p class="text-xs text-slate-500 font-medium">Sterilization</p>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <p class="text-2xl font-extrabold text-dental-700">Expert</p>
+                            <p class="text-xs text-slate-500 font-medium">Dental Surgeon</p>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <p class="text-2xl font-extrabold text-dental-700">Modern</p>
+                            <p class="text-xs text-slate-500 font-medium">Equipped Clinic</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic / Clinic Preview Card -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Main Clinic Visual Card -->
+                        <div class="bg-gradient-to-br from-dental-700 to-dental-900 rounded-3xl p-4 shadow-2xl text-white relative overflow-hidden animate-pulse-glow">
+                            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-dental-500/20 rounded-full blur-2xl"></div>
+                            <div class="rounded-2xl overflow-hidden bg-slate-900 relative aspect-[4/3]">
+                                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Modern Dental Clinic Interior" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0f2942/ffffff?text=Smile+Dental+Clinic'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-6">
+                                    <div>
+                                        <span class="bg-dental-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">State of the Art</span>
+                                        <h3 class="text-lg font-bold mt-1">Dr. Muhammad Bilal Haider's Clinic</h3>
+                                        <p class="text-xs text-slate-300">Al-Rehman Garden Phase 2 Lahore</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Floating Badges -->
+                            <div class="mt-4 grid grid-cols-3 gap-2 text-center text-xs font-semibold">
+                                <div class="bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/10">
+                                    <i class="fa-solid fa-tooth text-dental-300 block mb-1"></i>
+                                    <span>C-Implant</span>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/10">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-dental-300 block mb-1"></i>
+                                    <span>Esthetics</span>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/10">
+                                    <i class="fa-solid fa-face-smile text-dental-300 block mb-1"></i>
+                                    <span>Orthodontics</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctor Profile Section -->
+    <section id="about" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-dental-600 font-bold text-sm tracking-widest uppercase bg-dental-50 px-3 py-1 rounded-full border border-dental-100">Meet Your Dentist</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Dr. Muhammad Bilal Haider</h2>
+                <p class="text-slate-600 mt-2 text-base">Dedicated to bringing confidence back to your smile through gentle, expert dental care.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Doctor Image / Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-dental-500 to-blue-600 rounded-3xl blur-lg opacity-30"></div>
+                        <div class="relative bg-gradient-to-br from-slate-900 to-dental-900 rounded-3xl p-4 shadow-2xl text-white">
+                            <div class="rounded-2xl overflow-hidden aspect-[4/5] relative">
+                                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=80" alt="Dr. Muhammad Bilal Haider" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x750/0284c7/ffffff?text=Dr.+Muhammad+Bilal+Haider'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6">
+                                    <span class="bg-dental-500 text-white text-xs font-bold px-3 py-1 rounded-full">Lead Dental Surgeon</span>
+                                    <h3 class="text-2xl font-bold mt-2">Dr. Muhammad Bilal Haider</h3>
+                                    <p class="text-dental-200 text-sm">BDS, RDS, UHS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Details & Qualifications -->
+                <div class="lg:col-span-7 space-y-6">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                        Excellence in Dental Surgery & Patient Comfort
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Dr. Muhammad Bilal Haider is an experienced dental surgeon committed to modern, painless, and aesthetic dentistry. Graduating with prestigious credentials (BDS, RDS, UHS) and registered under PMDC# 941690-01-D, he specializes in complex implantology, root canal treatments, orthodontics, and complete smile makeovers.
+                    </p>
+
+                    <!-- Credentials Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-dental-100 flex items-center justify-center text-dental-600 flex-shrink-0">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Qualifications</h4>
+                                <p class="text-slate-600 text-xs mt-0.5">BDS, RDS, UHS Certified Surgeon</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-dental-100 flex items-center justify-center text-dental-600 flex-shrink-0">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">PMDC Registration</h4>
+                                <p class="text-slate-600 text-xs mt-0.5">PMDC# 941690-01-D</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-dental-100 flex items-center justify-center text-dental-600 flex-shrink-0">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Clinic Timings</h4>
+                                <p class="text-slate-600 text-xs mt-0.5">Mon to Sat: 3:00 PM to 10:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-dental-100 flex items-center justify-center text-dental-600 flex-shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Location</h4>
+                                <p class="text-slate-600 text-xs mt-0.5">Al-Rehman Garden Phase 2 Lahore</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specialized Categories Tags -->
+                    <div class="pt-4">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Core Expertise</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-dental-50 text-dental-700 border border-dental-200 px-3.5 py-1.5 rounded-xl text-xs font-semibold">C-Implant</span>
+                            <span class="bg-dental-50 text-dental-700 border border-dental-200 px-3.5 py-1.5 rounded-xl text-xs font-semibold">C-Endo (Root Canal)</span>
+                            <span class="bg-dental-50 text-dental-700 border border-dental-200 px-3.5 py-1.5 rounded-xl text-xs font-semibold">C-Ortho (Braces)</span>
+                            <span class="bg-dental-50 text-dental-700 border border-dental-200 px-3.5 py-1.5 rounded-xl text-xs font-semibold">C-Prostho</span>
+                            <span class="bg-dental-50 text-dental-700 border border-dental-200 px-3.5 py-1.5 rounded-xl text-xs font-semibold">C-Esthetic Dentistry</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-slate-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-dental-600 font-bold text-sm tracking-widest uppercase bg-dental-100 px-3 py-1 rounded-full border border-dental-200">Our Treatments</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Comprehensive Dental Services</h2>
+                <p class="text-slate-600 mt-2 text-base">State-of-the-art procedures tailored for your comfort and absolute oral health.</p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-tooth"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">C-Implant & Dental Implant</h3>
+                    <p class="text-slate-600 text-sm mb-4">Permanent, natural-looking replacement for missing teeth using advanced titanium implants.</p>
+                    <button onclick="openBookingModalWithService('Dental Implant / C-Implant')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-syringe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">C-Endo (Root Canal Treatment)</h3>
+                    <p class="text-slate-600 text-sm mb-4">Painless and precise root canal therapy to save infected or decayed teeth.</p>
+                    <button onclick="openBookingModalWithService('C-Endo / Root Canal')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">C-Ortho (Braces & Alignment)</h3>
+                    <p class="text-slate-600 text-sm mb-4">Straighten misaligned teeth and correct bites with modern orthodontic braces.</p>
+                    <button onclick="openBookingModalWithService('C-Ortho / Braces')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">C-Esthetic Dentistry</h3>
+                    <p class="text-slate-600 text-sm mb-4">Smile makeovers, veneers, and aesthetic enhancements for a radiant look.</p>
+                    <button onclick="openBookingModalWithService('C-Esthetic Dentistry')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-shield-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">C-Prostho & Bridges</h3>
+                    <p class="text-slate-600 text-sm mb-4">Crowns, bridges, and prosthodontic restorations for complete oral function.</p>
+                    <button onclick="openBookingModalWithService('C-Prostho / Crowns & Bridges')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Teeth Whitening</h3>
+                    <p class="text-slate-600 text-sm mb-4">Professional whitening to remove stains and brighten your smile instantly.</p>
+                    <button onclick="openBookingModalWithService('Teeth Whitening')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 7 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-hand-holding-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Scaling & Polishing</h3>
+                    <p class="text-slate-600 text-sm mb-4">Deep ultrasonic cleaning to remove tartar, plaque, and gum disease.</p>
+                    <button onclick="openBookingModalWithService('Scaling & Polishing')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 8 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-fill-drip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Tooth Filling</h3>
+                    <p class="text-slate-600 text-sm mb-4">Composite tooth-colored fillings to treat cavities and restore tooth structure.</p>
+                    <button onclick="openBookingModalWithService('Tooth Filling')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Service 9 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-dental-300 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-dental-50 flex items-center justify-center text-dental-600 text-2xl mb-6 group-hover:bg-dental-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-x-ray"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Dental X-Ray & Extraction</h3>
+                    <p class="text-slate-600 text-sm mb-4">Accurate diagnostic imaging and safe, comfortable tooth extractions.</p>
+                    <button onclick="openBookingModalWithService('Dental X-Ray & Extraction')" class="text-dental-600 font-semibold text-sm flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Book Service</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Before & After Section -->
+    <section id="transformation" class="py-20 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-dental-600 font-bold text-sm tracking-widest uppercase bg-dental-50 px-3 py-1 rounded-full border border-dental-100">Smile Transformations</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Before & After Results</h2>
+                <p class="text-slate-600 mt-2 text-base">Drag or slide to witness real clinical transformations achieved at Smile Dental Clinic.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl text-white">
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-6 pb-4 border-b border-slate-800">
+                    <div>
+                        <span class="text-dental-400 text-xs font-semibold uppercase tracking-wider">Case Study #01</span>
+                        <h3 class="text-xl font-bold mt-1">Stain Removal & Smile Restoration</h3>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex items-center space-x-2 bg-slate-800 px-4 py-2 rounded-xl text-xs font-semibold">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                        <span>Before: Yellowish / Stained</span>
+                        <span class="mx-2 text-slate-500">|</span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                        <span>After: Clean, White & Healthy</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Comparison Slider Container -->
+                <div class="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden select-none shadow-inner" id="comparison-container">
+                    <!-- After Image (Bottom Layer) -->
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80" alt="After Treatment" class="absolute inset-0 w-full h-full object-cover" onerror="this.src='https://placehold.co/1000x600/0284c7/ffffff?text=After+Clean+White+Smile'">
+                    <div class="absolute bottom-4 right-4 bg-emerald-600/90 backdrop-blur-md text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow">AFTER</div>
+
+                    <!-- Before Image (Top Layer clipped by slider) -->
+                    <div class="absolute inset-0 overflow-hidden" id="before-layer" style="width: 50%;">
+                        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1200&q=80" alt="Before Treatment" class="absolute inset-0 w-full h-full object-cover max-w-none" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/1000x600/334155/ffffff?text=Before+Stained+Teeth'">
+                        <div class="absolute bottom-4 left-4 bg-amber-600/90 backdrop-blur-md text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow">BEFORE</div>
+                    </div>
+
+                    <!-- Slider Handle Bar -->
+                    <div class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize" id="slider-handle" style="left: 50%;">
+                        <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-dental-600 rounded-full shadow-lg border-2 border-white flex items-center justify-center text-white text-sm">
+                            <i class="fa-solid fa-arrows-left-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-6">
+                    <p class="text-xs text-slate-400">Move the slider left or right to compare patient's smile transformation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities & Clinic Tour Section -->
+    <section id="facilities" class="py-20 bg-slate-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-dental-600 font-bold text-sm tracking-widest uppercase bg-dental-100 px-3 py-1 rounded-full border border-dental-200">Our Environment</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">World-Class Clinic Facilities</h2>
+                <p class="text-slate-600 mt-2 text-base">Designed for comfort, hygiene, and precision. Explore our clinic spaces and advanced equipment.</p>
+            </div>
+
+            <!-- Facilities Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Facility 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 group">
+                    <div class="aspect-[16/10] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=800&q=80" alt="Modern Dental Chair" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0284c7/ffffff?text=Modern+Dental+Chair'">
+                        <div class="absolute top-4 left-4 bg-dental-600 text-white text-xs font-bold px-3 py-1 rounded-lg">Treatment Room</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Ergonomic Dental Unit</h3>
+                        <p class="text-slate-600 text-sm">Advanced patient chairs equipped with integrated LED lighting and precise pneumatic instruments for comfortable procedures.</p>
+                    </div>
+                </div>
+
+                <!-- Facility 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 group">
+                    <div class="aspect-[16/10] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" alt="Waiting Area" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0f2942/ffffff?text=Waiting+Area'">
+                        <div class="absolute top-4 left-4 bg-dental-600 text-white text-xs font-bold px-3 py-1 rounded-lg">Lounge</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Cozy Waiting Lounge</h3>
+                        <p class="text-slate-600 text-sm">Relaxing ambiance with premium leather seating, calming interiors, and a welcoming atmosphere for patients and families.</p>
+                    </div>
+                </div>
+
+                <!-- Facility 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 group">
+                    <div class="aspect-[16/10] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" alt="Sterilization & Equipment" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Sterilization'">
+                        <div class="absolute top-4 left-4 bg-dental-600 text-white text-xs font-bold px-3 py-1 rounded-lg">Safety</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Strict Sterilization Protocol</h3>
+                        <p class="text-slate-600 text-sm">Hospital-grade autoclave sterilization and disposable instruments ensuring 100% infection control and patient safety.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment & Contact Section -->
+    <section id="contact" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Info & Timings Column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-dental-600 font-bold text-sm tracking-widest uppercase bg-dental-50 px-3 py-1 rounded-full border border-dental-100">Get in Touch</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Visit Smile Dental Clinic Today</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Ready for your dream smile? Reach out to us or drop by our clinic in Al-Rehman Garden Phase 2, Lahore. We look forward to serving you.
+                    </p>
+
+                    <!-- Contact Details Cards -->
+                    <div class="space-y-4 pt-2">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-dental-600 text-white flex items-center justify-center flex-shrink-0 text-xl shadow-md">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Clinic Address</h4>
+                                <p class="text-slate-600 text-xs mt-1">Al-Rehman Garden Phase 2 Lahore (A-Block Ext)</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-dental-600 text-white flex items-center justify-center flex-shrink-0 text-xl shadow-md">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Direct Contact</h4>
+                                <p class="text-slate-600 text-xs mt-1">03174640072</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-dental-600 text-white flex items-center justify-center flex-shrink-0 text-xl shadow-md">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Clinic Timings</h4>
+                                <p class="text-slate-600 text-xs mt-1">Monday to Saturday: 3:00 PM to 10:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form Card -->
+                <div class="lg:col-span-7 bg-gradient-to-br from-slate-900 to-dental-900 p-8 sm:p-10 rounded-3xl shadow-2xl text-white relative">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-dental-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <h3 class="text-2xl font-bold mb-2">Book Your Appointment</h3>
+                    <p class="text-slate-300 text-sm mb-6">Fill out the quick form below and our clinic coordinator will confirm your time slot promptly.</p>
+
+                    <form id="appointment-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Full Name</label>
+                                <input type="text" id="patient-name" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-dental-500 text-sm" placeholder="Enter your full name">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Phone Number</label>
+                                <input type="tel" id="patient-phone" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-dental-500 text-sm" placeholder="e.g. 03001234567">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Select Service</label>
+                                <select id="patient-service" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-dental-500 text-sm">
+                                    <option value="Consultation">General Consultation</option>
+                                    <option value="C-Implant / Dental Implant">C-Implant (Dental Implant)</option>
+                                    <option value="C-Endo / Root Canal">C-Endo (Root Canal Treatment)</option>
+                                    <option value="C-Ortho / Braces">C-Ortho (Braces & Alignment)</option>
+                                    <option value="C-Esthetic Dentistry">C-Esthetic Dentistry</option>
+                                    <option value="C-Prostho / Crowns & Bridges">C-Prostho / Crowns & Bridges</option>
+                                    <option value="Teeth Whitening">Teeth Whitening</option>
+                                    <option value="Scaling & Polishing">Scaling & Polishing</option>
+                                    <option value="Tooth Filling">Tooth Filling</option>
+                                    <option value="Dental X-Ray & Extraction">Dental X-Ray & Extraction</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Preferred Date</label>
+                                <input type="date" id="patient-date" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-dental-500 text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Additional Notes (Optional)</label>
+                            <textarea id="patient-notes" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-dental-500 text-sm" placeholder="Mention any specific pain or requirements..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-dental-500 to-dental-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-dental-500/50 hover:scale-[1.01] transition-all text-base flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Confirm Appointment Request</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-dental-600 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-tooth text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-white font-bold tracking-tight block">SMILE DENTAL CLINIC</span>
+                        <span class="text-xs text-slate-500">Happy Smile For a Joyful Life</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6 text-sm">
+                    <a href="#home" class="hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="hover:text-white transition-colors">Doctor Profile</a>
+                    <a href="#services" class="hover:text-white transition-colors">Services</a>
+                    <a href="#transformation" class="hover:text-white transition-colors">Before & After</a>
+                    <a href="#facilities" class="hover:text-white transition-colors">Facilities</a>
+                    <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Smile Dental Clinic. Led by Dr. Muhammad Bilal Haider (BDS, RDS, UHS | PMDC# 941690-01-D). All rights reserved.</p>
+                <p>Al-Rehman Garden Phase 2 Lahore (A-Block Ext) | Timing: 3:00 PM to 10:00 PM</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp & Call Buttons -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-3">
+        <a href="https://wa.me/923174640072" target="_blank" aria-label="WhatsApp Chat" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-2xl hover:scale-110 transition-transform">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:03174640072" aria-label="Call Clinic" class="w-14 h-14 bg-dental-600 hover:bg-dental-700 text-white rounded-full shadow-2xl flex items-center justify-center text-xl hover:scale-110 transition-transform">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <!-- Booking Modal Popup -->
+    <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden px-4">
+        <div class="bg-gradient-to-br from-slate-900 to-dental-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-white relative shadow-2xl border border-slate-800">
+            <button onclick="closeBookingModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-6">
+                <span class="bg-dental-500/20 text-dental-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Instant Slot Booking</span>
+                <h3 class="text-2xl font-bold mt-2">Schedule with Dr. Bilal Haider</h3>
+                <p class="text-slate-300 text-xs mt-1">Mon - Sat (3:00 PM - 10:00 PM) at Al-Rehman Garden Phase 2 Lahore</p>
+            </div>
+
+            <form id="modal-appointment-form" onsubmit="handleModalFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Full Name</label>
+                    <input type="text" id="modal-name" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-dental-500 text-sm" placeholder="Enter your full name">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Phone Number</label>
+                    <input type="tel" id="modal-phone" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-dental-500 text-sm" placeholder="03174640072">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Select Treatment</label>
+                    <select id="modal-service" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-dental-500 text-sm">
+                        <option value="General Consultation">General Consultation</option>
+                        <option value="Dental Implant / C-Implant">C-Implant (Dental Implant)</option>
+                        <option value="C-Endo / Root Canal">C-Endo (Root Canal)</option>
+                        <option value="C-Ortho / Braces">C-Ortho (Braces)</option>
+                        <option value="C-Esthetic Dentistry">C-Esthetic Dentistry</option>
+                        <option value="C-Prostho / Crowns & Bridges">C-Prostho / Crowns & Bridges</option>
+                        <option value="Teeth Whitening">Teeth Whitening</option>
+                        <option value="Scaling & Polishing">Scaling & Polishing</option>
+                        <option value="Tooth Filling">Tooth Filling</option>
+                        <option value="Dental X-Ray & Extraction">Dental X-Ray & Extraction</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Preferred Date</label>
+                    <input type="date" id="modal-date" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-dental-500 text-sm">
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-dental-500 to-dental-600 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-dental-500/50 hover:scale-[1.01] transition-all text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Confirm Booking</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal Popup -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden px-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center text-slate-900 relative shadow-2xl animate-float">
+            <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-900">Appointment Confirmed!</h3>
+            <p class="text-slate-600 text-sm mt-2" id="success-message">
+                Thank you! Your appointment request has been successfully submitted to Smile Dental Clinic. We will call you shortly to confirm your time slot.
+            </p>
+            <div class="mt-6 bg-slate-50 p-4 rounded-2xl border border-slate-100 text-xs text-slate-600 text-left space-y-1">
+                <p><strong>Doctor:</strong> Dr. Muhammad Bilal Haider</p>
+                <p><strong>Location:</strong> Al-Rehman Garden Phase 2 Lahore</p>
+                <p><strong>Timing:</strong> 3:00 PM to 10:00 PM</p>
+            </div>
+            <button onclick="closeSuccessModal()" class="mt-6 w-full bg-dental-600 hover:bg-dental-700 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm">
+                Done
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        }
+
+        // Booking Modal functions
+        function openBookingModal() {
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+        function openBookingModalWithService(serviceName) {
+            openBookingModal();
+            const select = document.getElementById('modal-service');
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].text.includes(serviceName) || select.options[i].value === serviceName) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        // Form Submission Handlers
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('patient-name').value;
+            const service = document.getElementById('patient-service').value;
+            const date = document.getElementById('patient-date').value;
+            
+            document.getElementById('success-message').innerHTML = `Thank you <strong>${name}</strong>! Your appointment for <strong>${service}</strong> on <strong>${date}</strong> has been received successfully.`;
+            document.getElementById('success-modal').classList.remove('hidden');
+            e.target.reset();
+        }
+
+        function handleModalFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('modal-name').value;
+            const service = document.getElementById('modal-service').value;
+            const date = document.getElementById('modal-date').value;
+            
+            closeBookingModal();
+            document.getElementById('success-message').innerHTML = `Thank you <strong>${name}</strong>! Your appointment for <strong>${service}</strong> on <strong>${date}</strong> has been received successfully.`;
+            document.getElementById('success-modal').classList.remove('hidden');
+            e.target.reset();
+        }
+
+        // Before & After Interactive Slider Logic
+        const container = document.getElementById('comparison-container');
+        const beforeLayer = document.getElementById('before-layer');
+        const handle = document.getElementById('slider-handle');
+
+        let isDragging = false;
+
+        function updateSlider(clientX) {
+            const rect = container.getBoundingClientRect();
+            let offsetX = clientX - rect.left;
+            let percentage = (offsetX / rect.width) * 100;
+            
+            if (percentage < 0) percentage = 0;
+            if (percentage > 100) percentage = 100;
+
+            beforeLayer.style.width = percentage + '%';
+            handle.style.left = percentage + '%';
+        }
+
+        handle.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.clientX);
+        });
+
+        // Touch support for mobile comparison slider
+        handle.addEventListener('touchstart', () => isDragging = true);
+        window.addEventListener('touchend', () => isDragging = false);
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.touches[0].clientX);
+        });
+
+        // Click on container to jump slider
+        container.addEventListener('click', (e) => {
+            updateSlider(e.clientX);
+        });
+
+        // Set default date picker to today
+        const today = new Date().toISOString().split('T')[0];
+        if(document.getElementById('patient-date')) document.getElementById('patient-date').value = today;
+        if(document.getElementById('modal-date')) document.getElementById('modal-date').value = today;
+    </script>
+</body>
+</html>
